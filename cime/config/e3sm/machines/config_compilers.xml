@@ -1608,6 +1608,17 @@ lude </CFLAGS>
   <NETCDF_PATH>$(NETCDF_HOME)</NETCDF_PATH>
 </compiler>
 
+<compiler MACH="google-cloud" COMPILER="gnu">
+  <ADD_GPTL_CPPDEFS> -DHAVE_VPRINTF -DHAVE_GETTIMEOFDAY -DHAVE_BACKTRACE </ADD_GPTL_CPPDEFS>
+  <SUPPORTS_CXX>TRUE</SUPPORTS_CXX>
+  <ADD_FFLAGS DEBUG="FALSE">-fno-unsafe-math-optimizations </ADD_FFLAGS>
+  <ADD_FFLAGS DEBUG="TRUE">-g -fbacktrace -fbounds-check -ffpe-trap=invalid,zero,overflow </ADD_FFLAGS>
+  <ADD_SLIBS>-L/apps/e3sm/software/netcdf-installed/lib -lnetcdf -lnetcdff -L/apps/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/netlib-lapack-3.9.1-if66k6xksiffxpxpnerbwftvmyw6lzqx/lib64 -lblas -llapack -L/apps/e3sm/software/pnetcdf-installed </ADD_SLIBS>
+  <CXX_LIBS>-lstdc++ -lmpi_cxx</CXX_LIBS>
+  <NETCDF_PATH>/apps/e3sm/software/netcdf-installed</NETCDF_PATH>
+  <PNETCDF_PATH>/apps/e3sm/software/pnetcdf-installed</PNETCDF_PATH>
+
+</compiler>
 
 <compiler COMPILER="gnu">
 	<ADD_CFLAGS MODEL="csm_share"> -std=c99 </ADD_CFLAGS>

@@ -2946,6 +2946,84 @@
       </environment_variables>
 </machine>
 
+<machine MACH="google-cloud">
+  <DESC>Google Cloud</DESC>
+  <NODENAME_REGEX>e3sm-gcp.*</NODENAME_REGEX>
+  <OS>LINUX</OS>
+  <COMPILERS>gnu</COMPILERS>
+  <MPILIBS>openmpi</MPILIBS>
+  <CIME_OUTPUT_ROOT>/apps/e3sm/scratch/$USER</CIME_OUTPUT_ROOT>
+  <DIN_LOC_ROOT>/apps/e3sm/inputdata2</DIN_LOC_ROOT>
+  <DIN_LOC_ROOT_CLMFORC>/apps/e3sm/inputdata2/atm/datm7</DIN_LOC_ROOT_CLMFORC>
+  <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
+  <BASELINE_ROOT>/apps/e3sm/baselines/$COMPILER</BASELINE_ROOT>
+  <CCSM_CPRNC>/apps/e3sm/tools/cprnc/cprnc</CCSM_CPRNC>
+  <GMAKE_J>16</GMAKE_J>
+  <TESTS>e3sm_developer</TESTS>
+  <NTEST_PARALLEL_JOBS>4</NTEST_PARALLEL_JOBS>
+  <BATCH_SYSTEM>slurm</BATCH_SYSTEM>
+  <SUPPORTED_BY>e3sm</SUPPORTED_BY>
+  <MAX_TASKS_PER_NODE>30</MAX_TASKS_PER_NODE>
+  <MAX_MPITASKS_PER_NODE>30</MAX_MPITASKS_PER_NODE>
+  <PROJECT_REQUIRED>FALSE</PROJECT_REQUIRED>
+  <mpirun mpilib="openmpi">
+    <executable>srun</executable>
+    <arguments>
+      <arg name="label"> --label</arg>
+      <arg name="num_tasks"> -n {{ total_tasks }} -N {{ num_nodes }}</arg>
+      <arg name="tasks_per_node"> --ntasks-per-node $MAX_MPITASKS_PER_NODE</arg>
+      <arg name="placement"> -m plane=$SHELL{echo `./xmlquery --value MAX_MPITASKS_PER_NODE`}</arg>
+    </arguments>
+  </mpirun>
+
+
+  <module_system type="module">
+    <init_path lang="python">/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/environment-modules-4.7.1-micsvpvjoih4jjqtrbdkfxnqpxwryebs/init/python.py</init_path>
+    <init_path lang="sh">/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/environment-modules-4.7.1-micsvpvjoih4jjqtrbdkfxnqpxwryebs/init/sh</init_path>
+    <init_path lang="csh">/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/environment-modules-4.7.1-micsvpvjoih4jjqtrbdkfxnqpxwryebs/init/csh</init_path>
+
+    <cmd_path lang="python">modulecmd python</cmd_path>
+    <cmd_path lang="sh">module</cmd_path>
+    <cmd_path lang="csh">module</cmd_path>
+
+    <modules>
+      <command name="load">environment-modules-4.7.1-gcc-4.8.5-micsvpv</command>
+      <command name="load">cmake-3.20.2-gcc-8.5.0-mojho7y</command>
+      <command name="load">perl-5.32.1-gcc-4.8.5-sd2tljb</command>
+      <command name="load">perl-xml-libxml-2.0201-gcc-4.8.5-ngd7ki2</command>
+      <command name="load">curl-7.76.1-gcc-4.8.5-d76glgw</command>
+      <command name="load">gcc-8.5.0-gcc-4.8.5-jqaoqyn</command>
+      <command name="load">openmpi-4.1.1-gcc-8.5.0-yofui5l</command>
+
+      <command name="load">netcdf-c-4.8.0-gcc-8.5.0-ajuc6ly</command>
+      <command name="load">netcdf-cxx-4.2-gcc-8.5.0-it3btfb</command>
+      <command name="load">netcdf-fortran-4.5.3-gcc-8.5.0-hmxg75h</command>
+      <command name="load">parallel-netcdf-1.12.2-gcc-8.5.0-spgum6z</command>
+
+      <command name="load">netlib-lapack-3.9.1-gcc-8.5.0-if66k6x</command>
+    </modules>
+  </module_system>
+  <RUNDIR>$CIME_OUTPUT_ROOT/$CASE/run</RUNDIR>
+  <EXEROOT>$CIME_OUTPUT_ROOT/$CASE/bld</EXEROOT>
+  <environment_variables>
+    <env name="PERL5LIB">/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-5.32.1-sd2tljbqhzp3doov2ksyc4qzb7gviruk/lib/5.32.1:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-alien-build-1.86-k4zbexpzuaqwzlrjinthhlq5wt7yjbuy/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-alien-libxml2-0.10_01-ihwnqrhea22nrljl3ul22xjcf47r2hyz/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-capture-tiny-0.46-zqsyzia7h6xbsk4gruzmkcpcdfsbfcn2/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-ffi-checklib-0.25-2htsab4duqqzhmndzutmntnyn62ev7fn/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-file-chdir-0.1011-bmacdlrcfebraljpcy47i5bqq2mye5s5/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-file-which-1.22-54g6rcdgo5qmvuh3wu3pggsgk4htomw5/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-path-tiny-0.108-s6lt6wedf33cjou4kmcxj76piloetawm/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-xml-libxml-2.0201-ngd7ki2aer36ed6lpenv6f6xgrsadolu/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-xml-namespacesupport-1.12_9-gnwgr3jqxfgcsem4scz27ardm2bbktiu/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-xml-sax-1.02-45oqjz33h4iy2vltly7ypvjj3xapo7lp/lib/perl5:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/perl-xml-sax-base-1.09-xlrcno6hz27egt2mssxz6jpuqozlbc6t/lib/perl5</env>
+
+    <env name="NETCDF_PATH">/apps/e3sm/software/netcdf-installed</env>
+
+    <env name="PNETCDF_PATH">/apps/e3sm/software/pnetcdf-installed</env>
+    <env name="CURL_PATH">/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/curl-7.76.1-d76glgwaqanjqdjbkfpjx7d7m7gpe74x</env>
+    <env name="OPENBLAS_PATH">/apps/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/openblas-0.3.15-6jq6h33librpvzodeojajig4ijdr4n2u</env>
+    <env name="LAPACK_PATH">/apps/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/netlib-lapack-3.9.1-if66k6xksiffxpxpnerbwftvmyw6lzqx</env>
+    <env name="LAPACK_PATH">/apps/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/netlib-lapack-3.9.1-if66k6xksiffxpxpnerbwftvmyw6lzqx</env>
+    <env name="LD_LIBRARY_PATH">/apps/e3sm/software/netcdf-installed/lib:/apps/e3sm/software/pnetcdf-installed/lib:/apps/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/curl-7.76.1-d76glgwaqanjqdjbkfpjx7d7m7gpe74x/lib:/apps/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/netlib-lapack-3.9.1-if66k6xksiffxpxpnerbwftvmyw6lzqx/lib64</env>
+  </environment_variables>
+  <environment_variables SMP_PRESENT="TRUE">
+    <env name="OMP_STACKSIZE">128M</env>
+    <env name="OMP_PLACES">threads</env>
+  </environment_variables>
+</machine>
+
+
 <default_run_suffix>
   <default_run_exe>${EXEROOT}/e3sm.exe </default_run_exe>
   <default_run_misc_suffix> >> e3sm.log.$LID 2>&amp;1 </default_run_misc_suffix>
